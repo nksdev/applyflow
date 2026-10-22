@@ -1,5 +1,7 @@
 # ApplyFlow — Private Job Application Tracker
 
+<p align="center"><strong><a href="https://nksdev.github.io/applyflow/">OPEN LIVE APP ↗</a></strong> · <a href="https://github.com/nksdev/applyflow">SOURCE CODE</a></p>
+
 ApplyFlow is an offline-first job application tracker for managing company details, application stages, follow-up dates, interview notes, and job links. It is a static web app with **zero runtime dependencies**: no backend, account, API key, paid service, or external database is required.
 
 ## Features
