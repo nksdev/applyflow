@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c1222">
+  <meta name="description" content="A private, offline-first job application tracker. Organise applications, interviews, follow-ups, and offers without sending data to a server.">
+  <title>ApplyFlow — Your job search, in control</title>
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="./" aria-label="ApplyFlow home">
+        <span class="brand-mark" aria-hidden="true">A<span>↗</span></span>
+        <span class="brand-copy"><strong>applyflow</strong><small>CAREER WORKSPACE</small></span>
+      </a>
+      <div class="sidebar-label">WORKSPACE</div>
+      <nav class="nav-list">
+        <button class="nav-item is-active" data-view="overview"><span class="nav-icon" aria-hidden="true">◫</span> Overview</button>
+        <button class="nav-item" data-view="applications"><span class="nav-icon" aria-hidden="true">▤</span> Applications <span class="nav-count" id="nav-total">0</span></button>
+        <button class="nav-item" data-view="followups"><span class="nav-icon" aria-hidden="true">◷</span> Follow-ups <span class="nav-dot" aria-hidden="true"></span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="privacy-card">
+          <span class="privacy-icon" aria-hidden="true">◈</span>
+          <strong>Your data stays yours.</strong>
+          <p>Applications are stored in this browser. No account, analytics, or external API.</p>
+          <span class="privacy-status"><i></i> LOCAL STORAGE ACTIVE</span>
+        </div>
+        <button class="nav-item" id="open-settings"><span class="nav-icon" aria-hidden="true">⚙</span> Data & settings</button>
+        <div class="sidebar-credit">Built for focused job hunting.<br><span>ApplyFlow · Open source</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="breadcrumb"><span>Workspace</span><span class="crumb-slash">/</span><strong id="page-title">Overview</strong></div>
+        <div class="topbar-actions">
+          <span class="local-chip"><i></i> Private workspace</span>
+          <button class="icon-button" id="theme-toggle" aria-label="Toggle colour theme" title="Toggle colour theme">◐</button>
+          <button class="avatar" id="profile-button" aria-label="Open data settings">N</button>
+        </div>
+      </header>
+
+      <section class="view is-visible" id="view-overview" aria-labelledby="welcome-title">
+        <div class="welcome-row">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-line"></span> YOUR CAREER, ORGANISED</p>
+            <h1 id="welcome-title">Make the next move <em>count.</em></h1>
+            <p class="subtitle">One clear view of every opportunity you’re pursuing.</p>
+          </div>
+          <button class="primary-button" id="add-first"><span aria-hidden="true">＋</span> Add application</button>
+        </div>
+        <div class="stat-grid" aria-label="Application summary">
+          <article class="stat-card"><div class="stat-top"><span>Total applications</span><span class="stat-icon indigo">▤</span></div><div class="stat-value" id="stat-total">0</div><div class="stat-foot"><span class="stat-muted">Across all stages</span></div></article>
+          <article class="stat-card"><div class="stat-top"><span>Interviews</span><span class="stat-icon blue">◉</span></div><div class="stat-value" id="stat-interviews">0</div><div class="stat-foot"><span class="stat-muted">Active conversations</span></div></article>
+          <article class="stat-card"><div class="stat-top"><span>Offers received</span><span class="stat-icon green">✓</span></div><div class="stat-value" id="stat-offers">0</div><div class="stat-foot"><span class="stat-muted">A reason to celebrate</span></div></article>
+          <article class="stat-card"><div class="stat-top"><span>Follow-ups due</span><span class="stat-icon amber">◷</span></div><div class="stat-value" id="stat-followups">0</div><div class="stat-foot"><span class="stat-muted" id="followup-caption">Nothing to miss</span></div></article>
+        </div>
+
+        <div class="content-grid">
+          <section class="panel applications-panel">
+            <div class="panel-heading"><div><h2>Recent applications</h2><p>Your latest tracked opportunities</p></div><button class="text-button" data-go="applications">View all <span aria-hidden="true">→</span></button></div>
+            <div id="recent-list" class="application-list"></div>
+            <div class="empty-state" id="recent-empty"><span class="empty-illustration" aria-hidden="true">↗</span><h3>Your next opportunity starts here</h3><p>Add your first application to build a clear picture of your job search.</p><button class="secondary-button" data-action="add">Add an application</button></div>
+          </section>
+          <section class="panel pipeline-panel">
+            <div class="panel-heading"><div><h2>Pipeline overview</h2><p>Where opportunities stand</p></div><span class="mini-badge">LIVE</span></div>
+            <div id="pipeline-bars" class="pipeline-bars"></div>
+            <div class="pipeline-footer"><span><i class="legend-dot active-dot"></i> In progress</span><strong id="pipeline-active">0 active</strong></div>
+          </section>
+        </div>
+        <section class="panel nudge-panel"><div class="nudge-icon" aria-hidden="true">✳</div><div><strong>Small, consistent actions add up.</strong><p>Track the next step for each application. A timely follow-up can keep a promising conversation moving.</p></div><button class="text-button" data-go="followups">Review follow-ups <span aria-hidden="true">→</span></button></section>
+      </section>
+
+      <section class="view" id="view-applications" aria-labelledby="applications-title">
+        <div class="page-heading-row"><div><p class="eyebrow"><span class="eyebrow-line"></span> OPPORTUNITY PIPELINE</p><h1 id="applications-title">Applications</h1><p class="subtitle">Keep every opportunity and next step in one place.</p></div><button class="primary-button" data-action="add"><span aria-hidden="true">＋</span> Add application</button></div>
+        <section class="panel records-panel">
+          <div class="records-toolbar"><div class="search-wrap"><span aria-hidden="true">⌕</span><input id="search-input" type="search" placeholder="Search company, role, or notes…" aria-label="Search applications"></div><div class="toolbar-filters"><select id="status-filter" aria-label="Filter by status"><option value="all">All statuses</option><option>Saved</option><option>Applied</option><option>Interview</option><option>Offer</option><option>Rejected</option></select><select id="sort-select" aria-label="Sort applications"><option value="updated">Recently updated</option><option value="applied-desc">Applied date: newest</option><option value="applied-asc">Applied date: oldest</option><option value="company">Company: A–Z</option><option value="followup">Follow-up date</option></select></div></div>
+          <div id="applications-list" class="application-list full-list"></div>
+          <div class="empty-state compact-empty" id="applications-empty"><span class="empty-illustration" aria-hidden="true">⌕</span><h3>No applications found</h3><p>Try changing the search or filter, or add a new application.</p><button class="secondary-button" data-action="add">Add an application</button></div>
+          <div class="list-footer"><span id="record-count">0 applications</span><button class="text-button" id="clear-filters">Clear filters</button></div>
+        </section>
+      </section>
+
+      <section class="view" id="view-followups" aria-labelledby="followups-title">
+        <div class="page-heading-row"><div><p class="eyebrow"><span class="eyebrow-line"></span> KEEP THE MOMENTUM</p><h1 id="followups-title">Follow-ups</h1><p class="subtitle">A focused list of overdue and upcoming next steps.</p></div><button class="primary-button" data-action="add"><span aria-hidden="true">＋</span> Add application</button></div>
+        <section class="panel records-panel"><div class="panel-heading"><div><h2>Your follow-up queue</h2><p>Only applications with a follow-up date appear here.</p></div><span class="mini-badge" id="followup-queue-count">0 ITEMS</span></div><div id="followups-list" class="application-list full-list"></div><div class="empty-state" id="followups-empty"><span class="empty-illustration" aria-hidden="true">◷</span><h3>All caught up</h3><p>Add a follow-up date to an application to see it here.</p><button class="secondary-button" data-go="applications">View applications</button></div></section>
+      </section>
+
+      <footer class="app-footer"><span>ApplyFlow <span class="footer-separator">/</span> A private job-search workspace</span><span><i></i> All data stays on this device</span></footer>
+    </main>
+  </div>
+
+  <dialog class="app-dialog" id="application-dialog" aria-labelledby="form-title">
+    <form id="application-form" class="dialog-form">
+      <div class="dialog-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> OPPORTUNITY DETAILS</p><h2 id="form-title">Add application</h2><p>Capture the details now; update them as you progress.</p></div><button type="button" class="icon-button close-dialog" aria-label="Close form" data-close="application-dialog">×</button></div>
+      <input type="hidden" id="record-id">
+      <div class="form-grid">
+        <label class="form-field"><span>Company <b>*</b></span><input id="company" name="company" required maxlength="120" autocomplete="organization" placeholder="e.g. Acme Technologies"></label>
+        <label class="form-field"><span>Job title <b>*</b></span><input id="role" name="role" required maxlength="120" placeholder="e.g. Security Analyst Intern"></label>
+        <label class="form-field"><span>Status</span><select id="status" name="status"><option>Saved</option><option selected>Applied</option><option>Interview</option><option>Offer</option><option>Rejected</option></select></label>
+        <label class="form-field"><span>Priority</span><select id="priority" name="priority"><option>Normal</option><option>High</option><option>Low</option></select></label>
+        <label class="form-field"><span>Location / work mode</span><input id="location" name="location" maxlength="120" placeholder="e.g. Noida · Hybrid"></label>
+        <label class="form-field"><span>Source</span><input id="source" name="source" maxlength="120" placeholder="e.g. LinkedIn, referral"></label>
+        <label class="form-field"><span>Applied / saved date</span><input id="applied-date" name="appliedDate" type="date"></label>
+        <label class="form-field"><span>Next follow-up</span><input id="follow-up-date" name="followUpDate" type="date"></label>
+        <label class="form-field full-field"><span>Job posting URL</span><input id="job-url" name="url" type="url" maxlength="1000" placeholder="https://…"></label>
+        <label class="form-field full-field"><span>Notes / next step</span><textarea id="notes" name="notes" rows="3" maxlength="4000" placeholder="Recruiter contact, interview topics, questions to prepare…"></textarea></label>
+      </div>
+      <div class="form-error" id="form-error" role="alert" hidden></div>
+      <div class="dialog-actions"><button type="button" class="secondary-button" data-close="application-dialog">Cancel</button><button class="primary-button" type="submit" id="save-record">Save application</button></div>
+    </form>
+  </dialog>
+
+  <dialog class="app-dialog settings-dialog" id="settings-dialog" aria-labelledby="settings-title">
+    <div class="dialog-form"><div class="dialog-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> YOUR DATA</p><h2 id="settings-title">Data & settings</h2><p>Your tracker lives in this browser. Back it up whenever you need.</p></div><button class="icon-button close-dialog" aria-label="Close settings" data-close="settings-dialog">×</button></div>
+      <div class="settings-section"><h3>Data backup</h3><p>Export a JSON backup to preserve applications, or export a CSV to open them in a spreadsheet.</p><div class="settings-actions"><button class="secondary-button" id="export-json">↓ Export JSON backup</button><button class="secondary-button" id="export-csv">↓ Export CSV</button></div><label class="import-label" for="import-file">Import a JSON backup <span>Merge or replace your current records using a file you choose.</span></label><input class="file-input" id="import-file" type="file" accept="application/json,.json"><label class="form-field"><span>Import mode</span><select id="import-mode"><option value="merge">Merge with existing records</option><option value="replace">Replace all existing records</option></select></label></div>
+      <div class="settings-section danger-zone"><h3>Reset local data</h3><p>This permanently removes all applications saved in this browser. Export a backup first if you need one.</p><button class="danger-button" id="delete-all">Delete all applications</button></div>
+      <div class="dialog-actions"><button class="primary-button" data-close="settings-dialog">Done</button></div>
+    </div>
+  </dialog>
+  <div id="toast-region" class="toast-region" role="status" aria-live="polite"></div>
+</body>
+</html>
