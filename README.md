@@ -42,14 +42,14 @@ No package installation is needed. Tests use Node's built-in test runner.
 
 ## Deploy to GitHub Pages
 
-The application source and deployment workflow are already in this repository. One GitHub Pages setting still needs to be enabled before the first deployment.
+GitHub Pages deployment is configured for this repository. The latest checked deployment workflow completed successfully.
 
-1. Open this repository's **Settings → Pages**.
-2. Under **Build and deployment**, set **Source** to **GitHub Actions** and save.
-3. Return to the [Actions tab](https://github.com/nksdev/applyflow/actions) and re-run the failed **Deploy ApplyFlow to GitHub Pages** workflow, or push a new commit to `main`.
-4. After a successful deployment, the expected public URL is `https://nksdev.github.io/applyflow/`.
+- **Website:** https://nksdev.github.io/applyflow/
+- Pushing to `main` triggers the `.github/workflows/deploy-pages.yml` workflow.
+- To deploy manually, open the [Actions tab](https://github.com/nksdev/applyflow/actions) and run **Deploy ApplyFlow to GitHub Pages**.
+- If the website is not reachable, check that **Settings → Pages → Build and deployment → Source** is set to **GitHub Actions**, then inspect the latest deployment run.
 
-The **ApplyFlow checks** workflow separately runs JavaScript syntax checks and unit tests for changes. The deploy workflow cannot complete until GitHub Pages is enabled for this repository.
+The **ApplyFlow checks** workflow runs JavaScript syntax checks and unit tests when code changes.
 
 ## Privacy and limitations
 
